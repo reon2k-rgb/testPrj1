@@ -3,3 +3,6 @@
 *.bak
 *preview*.txt
 *hex.txt
+
+# keep local backups
+/backups/
