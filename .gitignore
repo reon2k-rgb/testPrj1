@@ -1,0 +1,5 @@
+
+# backups and previews
+*.bak
+*preview*.txt
+*hex.txt
