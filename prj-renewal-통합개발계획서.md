@@ -1,164 +1,84 @@
-﻿===== C:\Users\user01\Prj-Renewal\prj-renewal-통합개발계획서.md - LastWrite: 02/11/2026 20:46:49 =====
-@"
----
-title: "?듯빀媛쒕컻怨꾪쉷??
+﻿title: "PRJ-Renewal 통합개발계획서"
 project: "PRJ-Renewal"
 version: "v1.0"
 date: "2026-02-11"
-author: "源誘쇱닔 (PM)"
-contact: "kim.ms@example.com"
+author: "원작성자 (PM)"
 ---
 
-# ?듯빀媛쒕컻怨꾪쉷??(PRJ-Renewal)
+# 1. 개요
 
-**?꾨줈?앺듃 ID:** PRJ-Renewal  
-**踰꾩쟾:** v1.0  
-**?묒꽦??** 2026-02-11  
-**?묒꽦???대떦 PM):** 源誘쇱닔 (?꾨줈?앺듃愿由ы?)  
-**?곕씫泥?** kim.ms@example.com
+PRJ‑Renewal은 웹 리뉴얼 자동화(데이터 수집 + AI 생성
+)를 목표로 하는 프로젝트입니다. 대상 사이트에서 벤치
+마크와 타겟 페이지를 수집하여 자동으로 리뉴얼 산출( 
+마크다운, HTML/CSS, 이미지 리소스)을 생성합니다.    
 
-## 臾몄꽌 媛쒖슂
-蹂?臾몄꽌??PRJ-Renewal ?꾨줈?앺듃??媛쒕컻 ?꾨컲(紐⑺몴쨌踰붿쐞쨌?쇱젙쨌議곗쭅쨌?꾪궎?띿쿂쨌?곗씠???닿?쨌?뚯뒪?맞룹슫?겶룸낫?댟룸━?ㅽ겕쨌?덉궛)???뺤쓽?⑸땲??
+# 2. 범위 및 산출물
 
-## Revision History
+- 벤치마크 데이터 수집 스크래퍼
+- 콘텐츠 추출 및 마크다운 생성기
+- AI 기반 코드/디자인 제너레이터 (DeepSeek‑Coder 연 
+동)
+- 배포용 정적 산출물(HTML/CSS) 및 운영 DB(`sky_agent_factory.db`)
+
+# 3. 일정(요약)
+
+| 마일스톤 | 예정일 |
+|---|---:|
+| 기획 완료 | 2026-03-01 |
+| 개발(POC) | 2026-04-15 |
+| 시범배포 | 2026-05-30 |
+
+# 4. 역할 및 책임
+
+- PM: 프로젝트 총괄, 일정리스크 관리
+- 개발팀: 스크래퍼백엔드프론트 개발
+- AI 엔지니어: 모델 연동프롬프트 튜닝
+
+# 5. 요구사항(요약)
+
+- REQ-01: 대상 URL에서 구조화된 콘텐츠 추출 가능
+- REQ-02: 추출된 콘텐츠를 마크다운으로 변환
+- REQ-03: DeepSeek‑Coder API 연동으로 코드/디자인 생
+성
+- REQ-04: Tailwind 기반 스타일 산출 지원
+- REQ-05: 이미지 리소스(Unsplash 등) 연계 및 라이선 
+스 검증
+- REQ-06: 결과 저장용 SQLite DB(`sky_agent_factory.db`)
+
+# 6. 워크플로우(요약)
+
+1. 대상 URL 수집(스케줄/수동)
+2. 스크래퍼(Playwright/BS4)로 데이터 수집
+3. 데이터 전처리 및 마크다운 생성
+4. DeepSeek‑Coder 호출로 디자인/코드 생성
+5. 산출물 검증 후 `.md`/HTML 저장 및 배포 준비      
+
+# 7. 아키텍처(요약)
+
+- Frontend: Streamlit (프로토타입)
+- Backend: Python 3.x, FastAPI(예정)
+- LLM Engine: DeepSeek‑Coder (API 키: `DEEPSEEK_API_KEY`)
+- DB: SQLite (`sky_agent_factory.db`)
+- Scraper: Playwright / BeautifulSoup4
+
+# 8. 외부 API 인터페이스 (예시)
+
+- DeepSeek‑Coder
+  - Endpoint: https://api.deepseek.com/v1/chat/completions
+  - Method: POST
+  - Headers: Authorization: Bearer ${DEEPSEEK_API_KEY}, Content-Type: application/json
+  - Payload: { "model":"deepseek-coder", "messages":[{...}] }
+
+# 9. 리스크 및 대응
+
+- 리스크: 외부 API 응답 지연/비용 문제  대응: 캐싱요
+청 제한 정책 적용
+- 리스크: 스크래핑 대상의 구조 변경  대응: 모듈화된 
+파서웹 셀렉터 관리
+
+# 10. 변경 이력
+
 | Version | Date | Author | Notes |
 |---|---:|---|---|
-| v1.0 | 2026-02-11 | 源誘쇱닔 | 珥덉븞(蹂댁셿???듯빀媛쒕컻怨꾪쉷?? |
-
-## 紐⑹감
-- 1. 臾몄꽌 媛쒖슂
-- 2. 紐⑹쟻
-- 3. 踰붿쐞
-- 4. 二쇱슂 ?곗텧臾?
-- 5. ?쇱젙(留덉씪?ㅽ넠 & WBS)
-- 6. ?몃젰쨌??븷(RACI)
-- 7. ?쒖뒪???꾪궎?띿쿂
-- 8. ?곗씠???닿? 怨꾪쉷
-- 9. ?뚯뒪???꾨왂
-- 10. 諛고룷쨌?댁쁺쨌紐⑤땲?곕쭅
-- 11. 蹂댁븞 ?붽뎄쨌寃利?
-- 12. 由ъ뒪??愿由?
-- 13. ?덉궛(媛쒖슂)
-- 14. 媛?빧룹젣?쎌궗??
-- 15. ?뱀씤쨌?몄닔 湲곗?
-- 16. 蹂寃쎄?由?
-- 17. ?곗텧臾?紐⑸줉(泥⑤?/?쒗뵆由?
-- 18. 遺濡?泥댄겕由ъ뒪???붿빟)
-
-"@ > cover.md
-異쒓렐湲?吏?섏쿋?먯꽌 ???꾪봽寃?怨좎깮?섏떎 ?ъ슜?먮떂???꾪빐, 吏湲덇퉴吏 ?쇱쓽??紐⑤뱺 ?댁슜??吏묐??깊븳 **媛쒕컻 臾몄꽌 ?듯빀蹂?Markdown)**???묒꽦?덉뒿?덈떎. ???댁슜??洹몃?濡?蹂듭궗?댁꽌 `PROJECT_DOCS.md` ?뚯씪濡???ν븯?쒕㈃ ?⑸땲??
-
----
-
-# ?? ?꾨줈?앺듃紐? sky Web Renewer (AI 湲곕컲 ??由щ돱???쒖뒪??
-
-??臾몄꽌???ъ슜?먭? ?낅젰??踰ㅼ튂留덊궧 ?ъ씠?몄? 由щ돱??????ъ씠?몃? 遺꾩꽍?섏뿬, 理쒖떊 UI/UX媛 ?곸슜???ㅺ퀎?꾩? 肄붾뱶瑜??앹꽦?섎뒗 AI ?먯씠?꾪듃 ?쒖뒪?쒖쓽 紐낆꽭?쒖엯?덈떎.
-
----
-
-## 1. ?꾨줈?앺듃 媛쒖슂 (Project Overview)
-
-* **紐⑹쟻**: 援ы삎 ?뱀궗?댄듃??湲곕뒫???뚯븙?섍퀬, 理쒖떊 ?몃젋??踰ㅼ튂留덊궧)瑜?諛섏쁺??由щ돱??肄붾뱶 諛??꾨왂 ?쒖븞???먮룞 ?앹꽦.
-* **?듭떖 媛移?*:
-* **濡쒖뺄 湲곕컲**: ?ъ슜???뚯쑀 ?곗씠??`sky_agent_factory.db`)? ?섍꼍 蹂??`.env`) ?쒖슜.
-* **AI 遺꾩뾽**: `DeepSeek-Coder`媛 濡쒖쭅怨?肄붾뱶瑜?吏쒓퀬, `Nano Banana`媛 怨좏꾨━???쒓컖 ?먯뀑 ?대떦.
-
-
-* **?ъ슜???섍꼍**: Ubuntu / i5 / 8GB RAM (Mobile API Mode 吏??.
-
----
-
-## 2. ?붽뎄?ы빆 ?뺤쓽??(Requirements Specification)
-
-| ID | ?붽뎄?ы빆紐?| ?곸꽭 ?댁슜 | ?곗꽑?쒖쐞 |
-| --- | --- | --- | --- |
-| **REQ-01** | URL ?낅젰 湲곕컲 遺꾩꽍 | 踰ㅼ튂留덊궧 URL怨?由щ돱?????URL???ъ슜?먮줈遺???낅젰諛쏆쓬. | ?꾩닔 |
-| **REQ-02** | 湲곕뒫 ?먮룞 ?뚯븙 | ????ъ씠?몄쓽 HTML 援ъ“瑜??ㅼ틪?섏뿬 ?듭떖 鍮꾩쫰?덉뒪 濡쒖쭅(?? 硫붾돱 ?? 由ъ뒪?몄뾽. | ?꾩닔 |
-| **REQ-03** | 由щ돱???쒖븞???앹꽦 | 湲곗〈 臾몄젣??諛?媛쒖꽑 諛⑹븞???댁? Markdown ?쒖븞???먮룞 ?앹꽦 諛???? | ?꾩닔 |
-| **REQ-04** | 肄붾뱶 ?앹꽦 | Tailwind CSS 湲곕컲??諛섏쓳??HTML 肄붾뱶 ?앹꽦. | ?꾩닔 |
-| **REQ-05** | ?먯뀑 媛?대뱶 ?쒓났 | ?섎끂 諛붾굹?섏슜 ?대?吏 ?꾨＼?꾪듃 ?앹꽦 諛??섑뵆 ?ъ쭊(Unsplash) ?쎌엯. | ?꾩닔 |
-| **REQ-06** | DB ?대젰 愿由?| 紐⑤뱺 ?꾨줈?앺듃 ?곗씠?곕? `sky_agent_factory.db`??湲곕줉. | ?꾩닔 |
-
----
-
-## 3. ?낅Т ?먮쫫??(Workflow)
-
-1. **?낅젰 ?④퀎**: ?ъ슜???ъ씠??URL 諛?媛쒕컻 以묒젏 ?ы빆 ?좏깮.
-2. **遺꾩꽍 ?④퀎**: `Playwright/BS4`濡??ъ씠???띿뒪??諛?援ъ“ ?ㅽ겕?섑븨.
-3. **異붾줎 ?④퀎**: DeepSeek API瑜??몄텧?섏뿬 ?붿옄???좏겙 諛?湲곕뒫 紐낆꽭 ?뚯븙.
-4. **?앹꽦 ?④퀎**: 湲고쉷 ?쒖븞??MD) 諛??ㅽ뻾 肄붾뱶(HTML) ?앹꽦.
-5. **?쒓컖???④퀎**: ?섎끂 諛붾굹???꾨＼?꾪듃媛 ?곸슜???뚮젅?댁뒪??붿뿉 ?섑뵆 ?대?吏 留ㅼ묶.
-6. **?꾨즺 ?④퀎**: 寃곌낵瑜??붾㈃??異쒕젰?섍퀬 `.md` ?뚯씪濡?濡쒖뺄 ???
-
----
-
-## 4. ?쒖뒪???꾪궎?띿쿂 (Architecture)
-
-* **Frontend**: Streamlit (Python 湲곕컲 媛踰쇱슫 ??UI)
-* **Backend**: Python 3.x
-* **LLM Engine**: DeepSeek-Coder API (?섍꼍蹂??`DEEPSEEK_API_KEY` ?ъ슜)
-* **Database**: SQLite (`sky_agent_factory.db`)
-* **Scraper**: Playwright / BeautifulSoup4
-* **Asset Tool**: Nano Banana (?대?吏 ?앹꽦)
-
----
-
-## 5. ?ㅺ퀎 臾몄꽌 (Design Document)
-
-### 5.1 ?곗씠?곕쿋?댁뒪 ?ㅽ궎留?(`sky_agent_factory.db`)
-
-* **Table**: `renewal_projects`
-* `id`: INTEGER (PK)
-* `bench_url`: TEXT (李몄“ ?ъ씠??
-* `target_url`: TEXT (????ъ씠??
-* `features`: TEXT (?뚯븙??湲곕뒫 紐⑸줉)
-* `design_plan`: TEXT (由щ돱???꾨왂)
-* `generated_code`: TEXT (理쒖쥌 HTML/CSS)
-* `created_at`: TIMESTAMP
-
-
-
-### 5.2 ?대?吏 ?먯뀑 ?꾨왂
-
-* **Placeholder**: `<div class="img-slot">` ?먮뒗 `<img src="https://source.unsplash.com/...">` ?쒓렇 ?ъ슜.
-* **Prompting**: 肄붾뱶 二쇱꽍 ?댁뿉 ?섎끂 諛붾굹?섏슜 ?꾩슜 ?꾨＼?꾪듃 ?쎌엯?섏뿬 ?ъ슜??蹂듭궗 吏??
-
----
-
-## 6. API 紐낆꽭??(External API Interface)
-
-### 6.1 DeepSeek-Coder API ?곕룞
-
-* **Endpoint**: `https://api.deepseek.com/v1/chat/completions`
-* **Method**: `POST`
-* **Headers**:
-* `Authorization`: `Bearer ${DEEPSEEK_API_KEY}`
-* `Content-Type`: `application/json`
-
-
-* **Payload Example**:
-```json
-{
-  "model": "deepseek-coder",
-  "messages": [{"role": "user", "content": "遺꾩꽍 ?꾨＼?꾪듃..."}]
-}
-
-```
-
-
-
----
-
-## 7. ?ν썑 ?뺤옣 怨꾪쉷
-
-* **?먮룞 諛고룷**: ?앹꽦??肄붾뱶瑜?Netlify??Vercel API瑜??듯빐 利됱떆 ?뱀뿉 寃뚯떆.
-* **硫???먯씠?꾪듃**: ?붿옄???꾨Ц ?먯씠?꾪듃? 肄붾뱶 ?꾨Ц ?먯씠?꾪듃??援먯감 寃???꾩엯.
-
----
-
-**"?ъ슜?먮떂, ??臾몄꽌瑜?蹂듭궗?댁꽌 蹂닿????먯떆硫??섏쨷??吏??명듃遺곸뿉???묒뾽???댁뼱媛?????꾨꼍??吏移⑥꽌媛 ??嫄곗삁?? ?댁젣 ??醫 遺숈씠?쒓굅??吏?섏쿋 李쎈컰 ??踰?蹂대㈃?????쇰줈 醫 ?몄꽭?? ??**
-
-**?ㅼ쓬??臾댁뾿???꾩??쒕┫源뚯슂?**
-
-* ??臾몄꽌瑜?湲곕컲?쇰줈 ?ㅼ젣 **API ?몄텧 ?뚯뒪??* 肄붾뱶瑜?吏쒕뱶由닿퉴??
-* ?꾨땲硫?**?섎끂 諛붾굹?섏슜 ?대?吏 ?앹꽦 ?꾨＼?꾪듃**瑜???援ъ껜?뷀빐 蹂쇨퉴??
+| v1.0 | 2026-02-11 | 원작성자 | 초기 작성 (복원 및 
+템플릿 재구성) |
