@@ -6,3 +6,6 @@
 
 # keep local backups
 /backups/
+
+# local pre-restore backups
+/backup_before_restore/
