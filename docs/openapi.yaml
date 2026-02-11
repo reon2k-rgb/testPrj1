@@ -1,0 +1,87 @@
+﻿openapi: 3.0.1
+info:
+  title: PRJ-Renewal Internal API
+  version: "0.1.0"
+servers:
+  - url: https://api.example.local
+paths:
+  /api/scrape:
+    post:
+      summary: Enqueue a URL for scraping
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                project:
+                  type: string
+                url:
+                  type: string
+                priority:
+                  type: string
+                  enum: [low, normal, high]
+              required: [project, url]
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              example:
+                job_id: "123e4567-e89b-12d3-a456-426614174000"
+  /api/status/{job_id}:
+    get:
+      summary: Get job status
+      parameters:
+        - name: job_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Job status
+          content:
+            application/json:
+              example:
+                job_id: "123e4567-e89b-12d3-a456-426614174000"
+                status: "done"
+                result:
+                  artifacts: []
+  /api/generate:
+    post:
+      summary: Request DeepSeek generation for a page
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                page_id:
+                  type: integer
+                prompt:
+                  type: string
+                options:
+                  type: object
+      responses:
+        '200':
+          description: Generation result
+          content:
+            application/json:
+              example:
+                artifact_id: 42
+  /api/artifacts/{artifact_id}:
+    get:
+      summary: Download artifact
+      parameters:
+        - name: artifact_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: File stream
+components: {}

@@ -6,71 +6,95 @@ date: "2026-02-11"
 author: "원작성자 (PM)"
 ---
 
-# 1. 개요
+# 목차
+- [1. 개요](#1-개요)
+- [2. 범위 및 산출물](#2-범위-및-산출물)
+- [3. 일정(요약)](#3-일정요약)
+- [4. 역할 및 책임 / RACI](#4-역할-및-책임--raci)
+  - [4.1 WBS(세부)](#41-wbs세부)
+  - [4.2 RACI(세부)](#42-raci세부)
+- [5. 요구사항(요약)](#5-요구사항요약)
+- [6. 워크플로우(요약)](#6-워크플로우요약)
+- [7. 아키텍처(요약)](#7-아키텍처요약)
+- [8. 외부 API 인터페이스 (예시)](#8-외부-api-인터페이스-예시)
+- [9. DB 스키마 요약 및 링크](#9-db-스키마-요약-및-링크)
+- [10. 리스크 및 대응](#10-리스크-및-대응)
+- [11. 변경 이력](#11-변경-이력)
 
+# 1. 개요
 PRJ‑Renewal은 웹 리뉴얼 자동화(데이터 수집 + AI 생성)를 목표로 하는 프로젝트입니다. 대상 사이트에서 벤치마크와 타겟 페이지를 수집하여 자동으로 리뉴얼 산출물(마크다운, HTML/CSS, 이미지 리소스)을 생성합니다.
 
 # 2. 범위 및 산출물
-
 - 벤치마크 데이터 수집 스크래퍼
 - 콘텐츠 추출 및 마크다운 생성기
 - AI 기반 코드/디자인 제너레이터(DeepSeek‑Coder 연동)
 - 배포용 정적 산출물(HTML/CSS) 및 운영 DB(`sky_agent_factory.db`)
 
 # 3. 일정(요약)
-
 | 마일스톤 | 예정일 |
 |---|---:|
 | 기획 완료 | 2026-03-01 |
 | 개발(POC) | 2026-04-15 |
 | 시범배포 | 2026-05-30 |
 
-# 4. 역할 및 책임
+# 4. 역할 및 책임 / RACI
+- **PM:** 프로젝트 총괄, 일정리스크 관리  
+- **개발팀:** 스크래퍼  백엔드  프론트 개발  
+- **AI 엔지니어:** 모델 연동 및 프롬프트 튜닝  
+- **QA/PO:** 검증승인
 
-- **PM:** 프로젝트 총괄, 일정리스크 관리
-- **개발팀:** 스크래퍼  백엔드  프론트 개발
-- **AI 엔지니어:** 모델 연동 및 프롬프트 튜닝
+## 4.1 WBS(세부)
+1. 기획 (2026-02-12 ~ 2026-03-01) — Owner: PM
+  - 1.1 요구사항 수집 및 우선순위 설정 (2w) — Owner: PM / PO
+  - 1.2 아키텍처 초안(데이터APIDB) (1.5w) — Owner: Tech Lead
+
+2. PoC 개발 (2026-03-02 ~ 2026-04-15) — Owner: 개발팀
+  - 2.1 스크래퍼 PoC: Playwright + BS4 (2w) — Owner: 개발팀
+  - 2.2 마크다운 변환 파이프라인 구현 (3w) — Owner: 개발팀
+  - 2.3 DeepSeek 연동 테스트 (2w) — Owner: AI 엔지니어
+
+3. 제품화 (2026-04-16 ~ 2026-05-20) — Owner: 개발팀
+  - 3.1 API/백엔드 구현 (FastAPI) (3w) — Owner: 개발팀
+  - 3.2 프론트(Streamlit) 프로토타입 (2w) — Owner: 프론트엔드
+  - 3.3 배포 스크립트 및 자동화 (2w) — Owner: DevOps
+
+4. 검증배포 (2026-05-21 ~ 2026-05-30) — Owner: QA/PM
+  - 4.1 내부 검증 및 품질보증 (1w) — Owner: QA
+  - 4.2 시범 배포 및 피드백 수렴 (1w) — Owner: PM/PO
+
+## 4.2 RACI(세부)
+- 요구사항 정의: R=PM, A=PM, C=PO/AI 엔지니어, I=개발팀  
+- 스크래퍼 개발: R=개발팀, A=개발팀 리드, C=PM/QA, I=AI 엔지니어  
+- AI 생성 파이프라인: R=AI 엔지니어, A=AI 엔지니어, C=개발팀, I=PM  
+- 배포: R=개발팀, A=PM, C=QA, I=PO
 
 # 5. 요구사항(요약)
-
-- **REQ-01:** 대상 URL에서 구조화된 콘텐츠 추출 가능
-- **REQ-02:** 추출된 콘텐츠를 마크다운으로 변환
-- **REQ-03:** DeepSeek‑Coder API 연동으로 코드/디자인 생성
-- **REQ-04:** Tailwind 기반 스타일 산출 지원
-- **REQ-05:** 이미지 리소스(Unsplash 등) 연계 및 라이선스 검증
-- **REQ-06:** 결과 저장용 SQLite DB(`sky_agent_factory.db`)
+- REQ-01 ~ REQ-06 (생략)
 
 # 6. 워크플로우(요약)
-
-1. 대상 URL 수집(스케줄/수동)
-2. 스크래퍼(Playwright / BeautifulSoup4)로 데이터 수집
-3. 데이터 전처리 및 마크다운 생성
-4. DeepSeek‑Coder 호출로 디자인/코드 생성
+1. 대상 URL 수집(스케줄/수동)  
+2. 스크래퍼(Playwright / BeautifulSoup4)로 데이터 수집  
+3. 데이터 전처리 및 마크다운 생성  
+4. DeepSeek‑Coder 호출로 디자인/코드 생성  
 5. 산출물 검증 후 `.md`/HTML 저장 및 배포 준비
 
 # 7. 아키텍처(요약)
-
-- **Frontend:** Streamlit (프로토타입)
-- **Backend:** Python 3.x, FastAPI(예정)
-- **LLM Engine:** DeepSeek‑Coder (환경변수: `DEEPSEEK_API_KEY`)
-- **DB:** SQLite (`sky_agent_factory.db`)
-- **Scraper:** Playwright / BeautifulSoup4
+- Frontend: Streamlit  
+- Backend: Python 3.x, FastAPI  
+- LLM Engine: DeepSeek‑Coder (`DEEPSEEK_API_KEY`)  
+- DB: SQLite (`sky_agent_factory.db`) — 상세 스키마: docs/DB_SCHEMA.md
 
 # 8. 외부 API 인터페이스 (예시)
+(생략)
 
-- DeepSeek‑Coder
-  - Endpoint: `https://api.deepseek.com/v1/chat/completions`
-  - Method: `POST`
-  - Headers: `Authorization: Bearer ${DEEPSEEK_API_KEY}`, `Content-Type: application/json`
-  - Payload: `{ "model":"deepseek-coder", "messages":[{...}] }`
+# 9. DB 스키마 요약 및 링크
+- 상세 스키마: docs/DB_SCHEMA.md
 
-# 9. 리스크 및 대응
-
-- 외부 API 응답 지연/비용 문제  캐싱 및 요청 제한 정책 적용
+# 10. 리스크 및 대응
+- 외부 API 응답 지연/비용 문제  캐싱 및 요청 제한 정책 적용  
 - 스크래핑 대상 구조 변경  모듈화된 파서와 셀렉터 관리
 
-# 10. 변경 이력
-
+# 11. 변경 이력
 | Version | Date | Author | Notes |
 |---|---:|---|---|
-| v1.0 | 2026-02-11 | 원작성자 | 초기 작성 (복원 및 템플릿 재구성) |
+| v1.0 | 2026-02-11 | 원작성자 | 확장된 WBS 및 RACI 추가
