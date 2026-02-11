@@ -1,0 +1,10 @@
+﻿id,title,start,end,owner,duration_weeks
+1,Requirements collection and prioritization,2026-02-12,2026-02-26,PM,2
+2,Architecture draft (data/API/DB),2026-02-26,2026-03-09,Tech Lead,1.5
+3,Scraper PoC (Playwright + BS4),2026-03-02,2026-03-16,Dev Team,2
+4,Markdown conversion pipeline,2026-03-09,2026-03-30,Dev Team,3
+5,DeepSeek integration tests,2026-03-23,2026-04-06,AI Engineer,2
+6,API/Backend implementation (FastAPI),2026-04-16,2026-05-06,Dev Team,3
+7,Frontend prototype (Streamlit),2026-04-16,2026-04-30,Frontend,2
+8,Deployment automation,2026-05-07,2026-05-20,DevOps,2
+9,Internal QA and pilot deploy,2026-05-21,2026-05-30,QA/PM,1

@@ -63,11 +63,14 @@ PRJ‑Renewal은 웹 리뉴얼 자동화(데이터 수집 + AI 생성)를 목표
   - 4.2 시범 배포 및 피드백 수렴 (1w) — Owner: PM/PO
 
 ## 4.2 RACI(세부)
-- 요구사항 정의: R=PM, A=PM, C=PO/AI 엔지니어, I=개발팀  
-- 스크래퍼 개발: R=개발팀, A=개발팀 리드, C=PM/QA, I=AI 엔지니어  
-- AI 생성 파이프라인: R=AI 엔지니어, A=AI 엔지니어, C=개발팀, I=PM  
-- 배포: R=개발팀, A=PM, C=QA, I=PO
 
+| Activity | R | A | C | I |
+|---|---|---|---|---|
+| Requirements definition | PM | PM | PO, AI Engineer | Development |
+| Scraper development | Development | Dev Lead | PM, QA | AI Engineer |
+| AI generation pipeline | AI Engineer | AI Engineer | Development | PM |
+| API & backend | Development | Development Lead | PM, QA | AI Engineer |
+| Deployment & release | Development | PM | QA | PO |
 # 5. 요구사항(요약)
 - REQ-01 ~ REQ-06 (생략)
 
@@ -98,3 +101,5 @@ PRJ‑Renewal은 웹 리뉴얼 자동화(데이터 수집 + AI 생성)를 목표
 | Version | Date | Author | Notes |
 |---|---:|---|---|
 | v1.0 | 2026-02-11 | 원작성자 | 확장된 WBS 및 RACI 추가
+
+
