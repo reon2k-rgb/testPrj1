@@ -9,3 +9,7 @@
 
 # local pre-restore backups
 /backup_before_restore/
+__pycache__/
+backup_before_update/
+.vscode/
+*.pyc
